@@ -1,4 +1,3 @@
-package ÷≤ŒÔ¥Û’ΩΩ© ¨;
 
 import java.awt.Graphics;
 import java.awt.Image;

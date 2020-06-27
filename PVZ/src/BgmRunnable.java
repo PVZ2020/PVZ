@@ -1,4 +1,4 @@
-package Ö²Îï´óÕ½½©Ê¬;
+
 
 import java.applet.Applet;
 import java.applet.AudioClip;
