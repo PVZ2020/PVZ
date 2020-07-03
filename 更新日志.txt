@@ -1,0 +1,8 @@
+2020.7.3
+1.更改showUI图片的储存方式（二维数组）
+2.bgmrunnble修改了音乐，音频可播放了
+3.pvz_picture增加新的图片，音频换掉了
+4.稍作修改后增加了ProjectileSnowPea类等子弹类
+5.修改Bullet构造函数，使子弹图片成为子弹子类的固有属性
+6.修改Plants构造函数，使植物图片成为植物子类的固有属性
+待解决问题：plant.put函数有疑问 （PvzMouseListener类）
