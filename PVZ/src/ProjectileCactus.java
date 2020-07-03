@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class ProjectilePea extends Bullet{
+public class ProjectileCactus extends Bullet{
 	
-	static Image img = new ImageIcon("pvz_picture\\ProjectilePea.png").getImage();
+	static Image img = new ImageIcon("pvz_picture\\ProjectileCactus.png").getImage();
 	
-	ProjectilePea(int m,int n,Graphics g){
+	ProjectileCactus(int m,int n,Graphics g){
 		super(m,n,g);
 	}
 	
@@ -23,11 +23,11 @@ public class ProjectilePea extends Bullet{
 	public void moveBullet(){
 		x += 6;
 	}
-	public ProjectilePea copy(){
+	public ProjectileCactus copy(){
 		try{
 			Class cl = this.getClass();
 			Constructor co = cl.getDeclaredConstructor(new Class[]{int.class,int.class,Graphics.class});
-			return (ProjectilePea)co.newInstance(new Object[]{m,n,g});
+			return (ProjectileCactus)co.newInstance(new Object[]{m,n,g});
 		}catch(Exception e){
 			e.printStackTrace();
 		}

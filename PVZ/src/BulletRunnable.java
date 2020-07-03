@@ -38,7 +38,7 @@ public class BulletRunnable implements Runnable{
 			}catch(InterruptedException e){
 				e.printStackTrace();
 			}
-				bg.drawImage(ShowUI.img[0], 0, 0,1980,1080,showUI);
+				bg.drawImage(ShowUI.img[0][0], 0, 0,1980,1080,showUI);
 				
 				for(Plants p:plant.values()){
 					p.draw(bg);

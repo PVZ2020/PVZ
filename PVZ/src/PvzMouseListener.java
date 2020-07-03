@@ -37,7 +37,8 @@ public class PvzMouseListener implements MouseListener,Runnable{
 		if(isFilled[m][n]){
 			isSelected = true;
 		}else{
-			plant.put(m+n*5,new PeaShooter(m,n,g,ShowUI.img[1],new ProjectilePea(m,n,g,ShowUI.img[2])));
+			plant.put(m+n*5,new PeaShooter(m,n,g,new ProjectilePea(m,n,g)));
+//			plant.put(m+n*5,new Cactus(m,n,g,new Cactus(m,n,g)));£¿£¿£¿
 			isFilled[m][n] = true;
 		}
 		if(isSelected){

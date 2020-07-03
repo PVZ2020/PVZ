@@ -20,14 +20,25 @@ public class ShowUI extends JFrame{
 	public final int h = 175;//height
 	
 	boolean[][] isFilled = new boolean[5][9];
-	static Image img[] = new Image[10];
+	static Image img[][] = new Image[4][10];
+	/* Image[0]系列为背景
+	 * Image[1]系列为植物
+	 * Image[2]系列为子弹
+	 * Image[3]系列为僵尸
+	 */
 	static{
-		img[0] = new ImageIcon("pvz_picture\\background2.jpg").getImage();
-		img[1] = new ImageIcon("pvz_picture\\Peashooter.gif").getImage();
+		img[0][0] = new ImageIcon("pvz_picture\\background1.jpg").getImage();
+		img[0][1] = new ImageIcon("pvz_picture\\background2.jpg").getImage();
 		
-		img[2] = new ImageIcon("pvz_picture\\ProjectilePea.png").getImage();
-		img[3] = new ImageIcon("pvz_picture\\xp.png").getImage();
-		img[4] = new ImageIcon("pvz_picture\\SunFlower.gif").getImage();
+		img[1][0] = new ImageIcon("pvz_picture\\Peashooter.gif").getImage();
+		img[1][1] = new ImageIcon("pvz_picture\\SunFlower.gif").getImage();
+		img[1][2] = new ImageIcon("pvz_picture\\SPeaShooter2.0.gif").getImage();
+		
+		img[2][0] = new ImageIcon("pvz_picture\\ProjectilePea.png").getImage();
+		img[2][1] = new ImageIcon("pvz_picture\\Projectile_star.png").getImage();
+		img[2][2] = new ImageIcon("pvz_picture\\ProjectileSnowPea.png").getImage();
+		img[2][3] = new ImageIcon("pvz_picture\\ProjectileCactus.png.png").getImage();
+		
 	}
 	PvzMouseListener mouseListener;
 	ArrayList<Bullet> bullet = new ArrayList<>();
@@ -35,7 +46,7 @@ public class ShowUI extends JFrame{
 	
 	public void paint(Graphics g){
 		super.paint(g);
-		g.drawImage(img[0], 0, 0, 1980, 1080, null);
+		g.drawImage(img[0][0], 0, 0, 1980, 1080, null);
 	}
 	public void InitUI(){
 		

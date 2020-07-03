@@ -5,11 +5,11 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class PeaShooter extends Plants{
+public class Cactus extends Plants{
 	
-	Image img = new ImageIcon("pvz_picture\\Peashooter.gif").getImage();
+	Image img = new ImageIcon("pvz_picture\\Cactus.gif").getImage();
 	
-	PeaShooter(int m,int n,Graphics g,Bullet bullet){
+	Cactus(int m,int n,Graphics g,Bullet bullet){
 		super(m,n,g,bullet);
 		}
 	
