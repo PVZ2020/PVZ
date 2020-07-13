@@ -17,13 +17,15 @@ import plants.*;
 
 public class PvzMouseListener implements MouseListener,Runnable,ActionListener{
 	
-	int option;
+	static int sunNumber;
+	int option = -1;
 	JButton[] jbutton;
 	ArrayList<Bullet> bullet;
 	Map<Integer,Plants> plant;
 	boolean isFilled[][];
 	PvzMouseListener(boolean[][] isFilled){
 		this.isFilled = isFilled;
+		
 	}
 	
 	Graphics g;
@@ -50,62 +52,73 @@ public class PvzMouseListener implements MouseListener,Runnable,ActionListener{
 		if (a.getSource() == jbutton[5]) option = 5;
 		if (a.getSource() == jbutton[6]) option = 6;
 		if (a.getSource() == jbutton[7]) option = 7;
-		//System.out.print(option);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		n = (e.getX()-350)/115;
+		n = (e.getX()-250)/115;
 		m = (e.getY()-150)/175;
+		System.out.println("x:"+e.getX()+"//"+"row:"+n);
+		System.out.println("y:"+e.getY()+"//"+"col:"+m);
+		for (Action s:SunFlower.arrS){
+			System.out.println(s.x+"///"+(e.getX()-225)+"///"+s.y+"//"+(e.getY()-75));
+			if(Math.abs(s.x - e.getX()+175)<30&&Math.abs(s.y - e.getY()+75)<30){
+				s.visible =0;
+				s.act();
+				sunNumber +=50;
+			}
+		}
+		
 		if(m<0||m>4||n<0||n>8) return;
-		System.out.println(m+" "+n);
+		
 		if(isFilled[m][n]){
-			isSelected = true;
+			
 		}else{
 			switch(option){
-			case 0:plant.put(m+n*5,new CherryBomb(m,n,g,ShowUI.imgP[0][0],new ProjectilePea(m,n,g,ShowUI.img[2])));
-			isFilled[m][n] = true;
-			option = -1;
-			break;
-			case 1:plant.put(m+n*5,new Chomper(m,n,g,ShowUI.imgP[1][0],null));
-			System.out.println("drawChomper");
-			isFilled[m][n] = true;
-			option = -1;
-			break;
-			case 2:plant.put(m+n*5,new WallNut(m,n,g,ShowUI.imgP[2][0],null));
-			isFilled[m][n] = true;
-			option = -1;
-			break;
-			case 3: 
-			plant.put(m+n*5,new SunFlower(m,n,g,ShowUI.imgP[3][0],null));
-			isFilled[m][n] = true;
-			option = -1;
-			break;
-			case 4:plant.put(m+n*5,new Squash(m,n,g,ShowUI.imgP[4][0],null));
-			isFilled[m][n] = true;
-			option = -1;
-			break;
-			case 5:plant.put(m+n*5,new PotatoMine(m,n,g,ShowUI.imgP[5][0],null));
-			isFilled[m][n] = true;
-			option = -1;
-			break;
-			case 6:plant.put(m+n*5,new Repeater(m,n,g,ShowUI.imgP[6][0],null));
-			isFilled[m][n] = true;
-			option = -1;
-			break;
-			case 7:plant.put(m+n*5,new PeaShooter(m,n,g,ShowUI.imgP[7][0],new ProjectilePea(m,n,g,ShowUI.img[2])));
-			isFilled[m][n] = true;
-			option = -1;
-			break;
-		
+				case 0:plant.put(m+n*5,new CherryBomb(m,n,g,new ProjectilePea(m,n,g)));
+				isFilled[m][n] = true;
+				Plants.plant();
+				option = -1;
+				break;
+				case 1:plant.put(m+n*5,new Chomper(m,n,g,null));
+				System.out.println("drawChomper");
+				Plants.plant();
+				isFilled[m][n] = true;
+				option = -1;
+				break;
+				case 2:plant.put(m+n*5,new WallNut(m,n,g,null));
+				isFilled[m][n] = true;
+				Plants.plant();
+				option = -1;
+				break;
+				case 3: 
+				plant.put(m+n*5,new SunFlower(m,n,g,null));
+				isFilled[m][n] = true;
+				Plants.plant();
+				option = -1;
+				break;
+				case 4:plant.put(m+n*5,new Squash(m,n,g,null));
+				isFilled[m][n] = true;
+				Plants.plant();
+				option = -1;
+				break;
+				case 5:plant.put(m+n*5,new PotatoMine(m,n,g,null));
+				isFilled[m][n] = true;
+				Plants.plant();
+				option = -1;
+				break;
+				case 6:plant.put(m+n*5,new Repeater(m,n,g,null));
+				isFilled[m][n] = true;
+				Plants.plant();
+				option = -1;
+				break;
+				case 7:plant.put(m+n*5,new PeaShooter(m,n,g,new ProjectilePea(m,n,g)));
+				isFilled[m][n] = true;
+				Plants.plant();
+				option = -1;
+				break;
+			}
 		}
-		if(isSelected){
-//			p = new PeaShooter(m,n,g,);
-//			p.clean(g);
-			isFilled[m][n] = false;
-		}
-		}
-		
 	}
 
 	@Override
@@ -136,13 +149,16 @@ public class PvzMouseListener implements MouseListener,Runnable,ActionListener{
 			}catch(InterruptedException e){
 				e.printStackTrace();
 			}
-			System.out.print(22222+">>>");
+			//System.out.print(22222+">>>");
 			if(bullet!=null){
 				for(int m=0;m<5;m++){
 					for(int n=0;n<9;n++){
 						if(isFilled[m][n]){
-							//Bullet b = plant.get(m+n*5).bullet.copy();
-							//bullet.add(b);
+//							if(plant.get(m+n*5).bullet !=null){
+//								Bullet b = plant.get(m+n*5).bullet.copy();
+//								bullet.add(b);
+//							}
+							
 						}
 					}
 				}

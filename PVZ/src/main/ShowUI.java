@@ -13,10 +13,12 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 import action.*;
@@ -35,51 +37,30 @@ public class ShowUI extends JFrame{
 	static Image img[] = new Image[10];
 	static Image imgB[] = new Image[10];
 	static Image imgP[][] = new Image[10][3];
-	
-{
-		imgB[0] = new ImageIcon("background_picture\\background2.jpg").getImage();
-		//樱桃炸弹
-		imgP[0][0] = new ImageIcon("plants_picture\\CherryBomb.gif").getImage();
-		imgP[0][1] = new ImageIcon("plants_picture\\Bomb.gif").getImage();
-		//食人花
-		imgP[1][0] = new ImageIcon("plants_picture\\Chomper.gif").getImage();
-		imgP[1][1] = new ImageIcon("plants_picture\\ChomperAttack.gif").getImage();
-		imgP[1][2] = new ImageIcon("plants_picture\\ChomperDigest.gif").getImage();
-		//低坚果
-		imgP[2][0] = new ImageIcon("plants_picture\\WallNut.gif").getImage();
-		imgP[2][1] = new ImageIcon("plants_picture\\Wallnut_cracked1.gif").getImage();
-		imgP[2][2] = new ImageIcon("plants_picture\\Wallnut_cracked2.gif").getImage();
-		//太阳花
-		imgP[3][0] = new ImageIcon("plants_picture\\SunFlower.gif").getImage();
-		//窝瓜
-		imgP[4][0] = new ImageIcon("plants_picture\\Squash.gif").getImage();
-		imgP[4][1] = new ImageIcon("plants_picture\\SquashAttack.gif").getImage();
-		//土豆地雷
-		imgP[5][0] = new ImageIcon("plants_picture\\PotatoMineNotReady.gif").getImage();
-		imgP[5][1] = new ImageIcon("plants_picture\\PotatoMine.gif").getImage();
-		imgP[5][2] = new ImageIcon("plants_picture\\PotatoMine_mashed.gif").getImage();
-		//Repeater
-		imgP[6][0] = new ImageIcon("plants_picture\\Repeater.gif").getImage();
-		//豌豆射手
-		imgP[7][0] = new ImageIcon("plants_picture\\Peashooter.gif").getImage();
+	public static JPanel p2;
+		
+	static{
+		imgB[0] = new ImageIcon("background_picture\\background1 (1).png").getImage();
+		imgB[1] = new ImageIcon("background_picture\\background1.png").getImage();
 		
 
 		}
+	public SunFlower sf ;
 	PvzMouseListener mouseListener = new PvzMouseListener(isFilled);
+	//Sun sun = new Sun();
+	
 	ArrayList<Bullet> bullet = new ArrayList<>();
-	Map<Integer,Plants> plant = new HashMap<>();
+	Map<Integer,Plants> plant = new ConcurrentHashMap<>();
 	JButton[] jbutton = new JButton[8];
 	
 	public void InitUI(){
+		JPanel p = new Jp();
 		
-		JPanel p = new JPanel();
-		//JPanel p2 = new JPanel();
-		
-		p.setBackground(Color.black);
-		p.setOpaque(false);
-		p.setPreferredSize(new Dimension(100,0));
-		
-		//p.setVisible(true);
+		p2 = new JPanel();
+	
+		p.setSize(100,1080);
+		p2.setBounds(0,0,1980,1080);
+		p.setVisible(true);
 		//p.setLayout(new FlowLayout());
 		
 		jbutton[0] = new JButton();
@@ -130,21 +111,19 @@ public class ShowUI extends JFrame{
 		p.add(jbutton[6]);
 		p.add(jbutton[7]);
 		
-		this.add(p, BorderLayout.WEST);
-		//this.add(p2);
 		
-		//this.setLayout(null);
+		
 		this.setTitle("植物大战僵尸魔改版");
+		this.add(p);
+		this.add(p2);
+		this.setLayout(null);
 		this.setSize(1980, 1080);
 		this.setResizable(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		
 		
-		
-//		mouseListener = new PvzMouseListener(isFilled);
 		this.addMouseListener(mouseListener);
-		mouseListener.g = this.getGraphics();
 		
 		mouseListener.bullet = bullet;
 		mouseListener.plant = plant;
@@ -155,7 +134,7 @@ public class ShowUI extends JFrame{
 		Thread t1= new Thread(mouseListener);
 		t1.start();
 		
-		BulletRunnable bulletRunnable = new BulletRunnable(mouseListener.g,this,p);
+		BulletRunnable bulletRunnable = new BulletRunnable(p2,isFilled);
 		bulletRunnable.bullet = bullet;
 		bulletRunnable.plant = plant;
 		bulletRunnable.jbutton = jbutton;
@@ -169,7 +148,11 @@ public class ShowUI extends JFrame{
 		t3.start();
 	}
 	
-	
+	class Jp extends JPanel{
+		public void paint(Graphics g){
+			g.drawImage(imgB[1], 0, 0, 100, 1080, null);
+		}
+	}
 	
 
 	
