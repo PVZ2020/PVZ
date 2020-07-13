@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 
 import action.*;
 import plants.*;
+import zombies.*;
 
 import java.applet.AudioClip;
 
@@ -50,6 +51,8 @@ public class ShowUI extends JFrame{
 	//Sun sun = new Sun();
 	
 	ArrayList<Bullet> bullet = new ArrayList<>();
+	//这里有修改
+	ArrayList<Zombies> zombies = new ArrayList<>();
 	Map<Integer,Plants> plant = new ConcurrentHashMap<>();
 	JButton[] jbutton = new JButton[8];
 	
@@ -134,11 +137,19 @@ public class ShowUI extends JFrame{
 		Thread t1= new Thread(mouseListener);
 		t1.start();
 		
+		//这里是僵尸产生的线程
+		ZombiesRunnable zombiesRunnable = new ZombiesRunnable(mouseListener.g);
+		Thread t4 = new Thread(zombiesRunnable);
+		t4.start();
+		
 		BulletRunnable bulletRunnable = new BulletRunnable(p2,isFilled);
 		bulletRunnable.bullet = bullet;
 		bulletRunnable.plant = plant;
 		bulletRunnable.jbutton = jbutton;
 		bulletRunnable.option = option;
+		//这里有修改
+		zombiesRunnable.zombies = zombies;
+		bulletRunnable.zombies = zombies;
 		
 		Thread t2= new Thread(bulletRunnable);
 		t2.start();
@@ -146,6 +157,9 @@ public class ShowUI extends JFrame{
 		BgmRunnable bgm = new BgmRunnable();
 		Thread t3 = new Thread(bgm);
 		t3.start();
+		
+		
+		
 	}
 	
 	class Jp extends JPanel{

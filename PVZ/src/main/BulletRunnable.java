@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 
 import action.*;
 import plants.*;
+import zombies.Zombies;
 
 
 public class BulletRunnable implements Runnable{
@@ -26,6 +27,8 @@ public class BulletRunnable implements Runnable{
 	Graphics g;
 	ArrayList<Bullet> bullet;
 	Map<Integer,Plants> plant;
+	//这里有修改
+	public ArrayList<Zombies> zombies;
 	JPanel jp;
 	int sunNumber;
 	boolean[][] isFilled;
@@ -86,6 +89,13 @@ public class BulletRunnable implements Runnable{
 					
 					if(bullet.get(i).m>10){
 						bullet.remove(i);
+					}
+				}
+				for(int i=0;i<zombies.size();i++){
+					zombies.get(i).move();
+					zombies.get(i).draw(bg);
+					if(zombies.get(i).x<0){
+						zombies.remove(i);
 					}
 				}
 				g.drawImage(bfimg, 100, 0, null);
