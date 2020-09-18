@@ -98,6 +98,14 @@ public class BulletRunnable implements Runnable{
 						zombies.remove(i);
 					}
 				}
+				for(int i=0;i<bullet.size();i++){
+					for(int j=0;j<zombies.size();j++){
+						if(bullet.get(i).n == zombies.get(j).n&&Math.abs(bullet.get(i).x-zombies.get(j).x)<11){
+							zombies.get(j).HP-=100;
+							bullet.get(i).visible=0;
+						}
+					}
+				}
 				g.drawImage(bfimg, 100, 0, null);
 			    
 			

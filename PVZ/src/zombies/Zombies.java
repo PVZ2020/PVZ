@@ -3,14 +3,16 @@ package zombies;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import action.Action;
+
 //Ω© ¨¿‡
-public class Zombies {
+public class Zombies extends Action{
 	public Image img;
 	public int HP;
 	Graphics g;
 	private int speed = 10;
 //	int m,n;
-	int n;
+//	int n;
 	public int x=0;
 	public int y=0;
 	
